@@ -1,0 +1,15 @@
+get_filename_component(Commons_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+include(CMakeFindDependencyMacro)
+
+list(APPEND CMAKE_MODULE_PATH ${Commons_CMAKE_DIR})
+
+find_package(fmt CONFIG REQUIRED)
+find_package(spdlog CONFIG REQUIRED)
+
+list(REMOVE_AT CMAKE_MODULE_PATH -1)
+
+if(NOT TARGET Commons::Commons)
+    include("${Commons_CMAKE_DIR}/CommonsTargets.cmake")
+endif()
+
+set(Commons_LIBRARIES Commons::Commons)
